@@ -52,14 +52,16 @@ $\begin{itemize}
 
             let processedText = latexInput
                 .replace(/\\n/g, '<br>')
+                .replace(/\$\\underline{([^}]+)}\$/g, '<u>$1</u>')  // Fix underline with $ wrapper
+                .replace(/\\underline{([^}]+)}/g, '<u>$1</u>')  // Underline without $ wrapper
                 .replace(/\\begin{enumerate}/g, '<ol>')
                 .replace(/\\end{enumerate}/g, '</ol>')
                 .replace(/\\begin{itemize}/g, '<ul>')
                 .replace(/\\end{itemize}/g, '</ul>')
                 .replace(/\\item/g, '<li>')
-                .replace(/\\underline{([^}]+)}/g, '<u>$1</u>')  // Underline support
-                .replace(/\\begin{matrix}/g, '\\left[\\begin{matrix}')  // Matrix bracket start
-                .replace(/\\end{matrix}/g, '\\end{matrix}\\right]');  // Matrix bracket end
+                .replace(/<\/li><li>/g, '</li><li>')  // Ensure proper list structure
+                .replace(/<\/ul><ul>/g, '')  // Prevent nested itemize duplication
+                .replace(/<\/ol><ol>/g, '');  // Prevent nested enumerate duplication
 
             outputDiv.innerHTML = processedText;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
