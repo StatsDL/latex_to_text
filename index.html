@@ -39,10 +39,10 @@
             const latexInput = document.getElementById('latex-input').value;
             const outputDiv = document.getElementById('output');
             let plainText = latexInput
-                .replace(/\$?\\frac{([^}]+)}{([^}]+)}/g, '($1/$2)')
-                .replace(/\textbf{([^}]+)}/g, '<strong>$1</strong>')
-                .replace(/\textit{([^}]+)}/g, '<em>$1</em>')
-                .replace(/\text{([^}]+)}/g, '$1')
+                .replace(/\\frac{([^}]+)}{([^}]+)}/g, '($1/$2)')
+                .replace(/\\textbf{([^}]+)}/g, '<strong>$1</strong>')
+                .replace(/\\textit{([^}]+)}/g, '<em>$1</em>')
+                .replace(/\\text{([^}]+)}/g, '$1')
                 .replace(/\$/g, '')
                 .replace(/\\\(/g, '(')
                 .replace(/\\\)/g, ')');
