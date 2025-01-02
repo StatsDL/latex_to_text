@@ -54,6 +54,9 @@ $\begin{itemize}
                 .replace(/\\n/g, '<br>')
                 .replace(/\$\\underline{([^}]+)}\$/g, '<u>$1</u>')  // Fix underline with $ wrapper
                 .replace(/\\underline{([^}]+)}/g, '<u>$1</u>')  // Underline without $ wrapper
+                .replace(/\\textbf{([^}]+)}/g, '<strong>$1</strong>')  // Bold
+                .replace(/\\textit{([^}]+)}/g, '<em>$1</em>')  // Italic
+                .replace(/\\texttt{([^}]+)}/g, '<code>$1</code>')  // Monospaced
                 .replace(/\\begin{enumerate}/g, '<ol>')
                 .replace(/\\end{enumerate}/g, '</ol>')
                 .replace(/\\begin{itemize}/g, '<ul>')
