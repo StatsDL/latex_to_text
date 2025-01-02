@@ -52,8 +52,7 @@ $\begin{itemize}
 
             let processedText = latexInput
                 .replace(/\\n/g, '<br>')
-                .replace(/\\\\/g, '<br>')  // Treat \ as 
-
+                .replace(/\\\\/g, '<br>')  // Treat \ as new line
                 .replace(/\$\\underline{([^}]+)}\$/g, '<u>$1</u>')  // Fix underline with $ wrapper
                 .replace(/\\underline{([^}]+)}/g, '<u>$1</u>')  // Underline without $ wrapper
                 .replace(/\\textbf{([^}]+)}/g, '<strong>$1</strong>')  // Bold
@@ -68,7 +67,14 @@ $\begin{itemize}
                 .replace(/<\/ul><ul>/g, '')  // Prevent nested itemize duplication
                 .replace(/<\/ol><ol>/g, '')  // Prevent nested enumerate duplication
                 .replace(/\\begin{matrix}/g, '\\left[\\begin{matrix}')  // Matrix with brackets
-                .replace(/\\end{matrix}/g, '\\end{matrix}\\right]');
+                .replace(/\\end{matrix}/g, '\\end{matrix}\\right]')
+                .replace(/\\begin{tabular}/g, '<table border="1">')  // Tabular to HTML table
+                .replace(/\\end{tabular}/g, '</table>')
+                .replace(/\\hline/g, '<tr><td colspan="100%"><hr></td></tr>')  // Horizontal line
+                .replace(/&/g, '</td><td>')  // Column separation
+                .replace(/\\begin{table}/g, '<table>')
+                .replace(/\\end{table}/g, '</table>')
+                .replace(/<br><tr>/g, '<tr>');  // Cleanup for lines
 
             outputDiv.innerHTML = processedText;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
