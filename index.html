@@ -43,7 +43,13 @@
         function convertLatex() {
             const latexInput = document.getElementById('latex-input').value;
             const outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = `\[${latexInput.replace(/\\n/g, '<br>')}\]`;
+            let processedText = latexInput
+                .replace(/\\n/g, '<br>')
+                .replace(/\\begin{enumerate}/g, '<ol>')
+                .replace(/\\end{enumerate}/g, '</ol>')
+                .replace(/\\item/g, '<li>');
+
+            outputDiv.innerHTML = `\(${processedText}\)`;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
         }
 
