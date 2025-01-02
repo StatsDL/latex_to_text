@@ -38,20 +38,8 @@
         function convertLatex() {
             const latexInput = document.getElementById('latex-input').value;
             const outputDiv = document.getElementById('output');
-            let plainText = latexInput
-                .replace(/\\frac{([^}]+)}{([^}]+)}/g, '($1/$2)')
-                .replace(/\\textbf{([^}]+)}/g, '<strong>$1</strong>')
-                .replace(/\\textit{([^}]+)}/g, '<em>$1</em>')
-                .replace(/\\text{([^}]+)}/g, '$1')
-                .replace(/\\n|\\/g, '<br>')
-                .replace(/\\begin{itemize}/g, '<ul>')
-                .replace(/\\end{itemize}/g, '</ul>')
-                .replace(/\\item/g, '<li>')
-                .replace(/\$/g, '')
-                .replace(/\\\(/g, '(')
-                .replace(/\\\)/g, ')');
-
-            outputDiv.innerHTML = plainText;
+            outputDiv.innerHTML = `\\[${latexInput.replace(/\\n|\\/g, '<br>')}\\]`;
+            MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
         }
 
         function copyToClipboard() {
