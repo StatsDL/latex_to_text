@@ -61,7 +61,9 @@ $\begin{itemize}
                 .replace(/\\item/g, '<li>')
                 .replace(/<\/li><li>/g, '</li><li>')  // Ensure proper list structure
                 .replace(/<\/ul><ul>/g, '')  // Prevent nested itemize duplication
-                .replace(/<\/ol><ol>/g, '');  // Prevent nested enumerate duplication
+                .replace(/<\/ol><ol>/g, '')  // Prevent nested enumerate duplication
+                .replace(/\\begin{matrix}/g, '\\left[\\begin{matrix}')  // Matrix with brackets
+                .replace(/\\end{matrix}/g, '\\end{matrix}\\right]');
 
             outputDiv.innerHTML = processedText;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
