@@ -71,6 +71,8 @@ $\begin{itemize}
                 .replace(/\\begin{tabular}{.*?}/g, '')  // Start of tabular, remove braces
                 .replace(/\\end{tabular}/g, '')
                 .replace(/\\hline/g, '<hr>')  // Horizontal line in tabular
+                .replace(/\\multirow{[^}]+}{[^}]+}{([^}]+)}/g, '$1')  // Handle multirow
+                .replace(/\\multicolumn{[^}]+}{[^}]+}{([^}]+)}/g, '$1')  // Handle multicolumn
                 .replace(/&/g, ' | ')  // Column separator
                 .replace(/\\\\/g, '<br>');  // Row separator
 
