@@ -24,7 +24,12 @@
         </div>
         <div class="split-container">
             <div class="half">
-                <textarea id="latex-input" placeholder="Enter LaTeX here...">\textbf{Bold Text}, \textit{Italic Text}, \frac{a}{b}</textarea>
+                <textarea id="latex-input" placeholder="Enter LaTeX here...">$\textbf{Bold Text}$, $\textit{Italic Text}$, $\frac{a}{b}$ \n 
+
+\begin{enumerate}
+\item 1
+\item 2
+\end{enumerate}</textarea>
             </div>
             <div class="half">
                 <div id="output" class="output"></div>
@@ -38,7 +43,7 @@
         function convertLatex() {
             const latexInput = document.getElementById('latex-input').value;
             const outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = `\\[${latexInput.replace(/\\n|\\/g, '<br>')}\\]`;
+            outputDiv.innerHTML = `\[${latexInput.replace(/\\n/g, '<br>')}\]`;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
         }
 
