@@ -26,10 +26,16 @@
             <div class="half">
                 <textarea id="latex-input" placeholder="Enter LaTeX here...">$
 \textbf{Bold Text}$, $\textit{Italic Text}$, $\frac{a}{b}$ \n
-\begin{enumerate}
-\item 1 tu
-\item 2 ty
-\end{enumerate}</textarea>
+$\begin{enumerate}
+\item First point
+\item Second point
+\item Third point
+\end{enumerate}$
+
+$\begin{itemize}
+\item Bullet 1
+\item Bullet 2
+\end{itemize}$</textarea>
             </div>
             <div class="half">
                 <div id="output" class="output"></div>
@@ -50,7 +56,10 @@
                 .replace(/\\end{enumerate}/g, '</ol>')
                 .replace(/\\begin{itemize}/g, '<ul>')
                 .replace(/\\end{itemize}/g, '</ul>')
-                .replace(/\\item/g, '<li>');
+                .replace(/\\item/g, '<li>')
+                .replace(/\\underline{([^}]+)}/g, '<u>$1</u>')  // Underline support
+                .replace(/\\begin{matrix}/g, '\\left[\\begin{matrix}')  // Matrix bracket start
+                .replace(/\\end{matrix}/g, '\\end{matrix}\\right]');  // Matrix bracket end
 
             outputDiv.innerHTML = processedText;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
