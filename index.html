@@ -43,6 +43,10 @@
                 .replace(/\\textbf{([^}]+)}/g, '<strong>$1</strong>')
                 .replace(/\\textit{([^}]+)}/g, '<em>$1</em>')
                 .replace(/\\text{([^}]+)}/g, '$1')
+                .replace(/\\n|\\/g, '<br>')
+                .replace(/\\begin{itemize}/g, '<ul>')
+                .replace(/\\end{itemize}/g, '</ul>')
+                .replace(/\\item/g, '<li>')
                 .replace(/\$/g, '')
                 .replace(/\\\(/g, '(')
                 .replace(/\\\)/g, ')');
