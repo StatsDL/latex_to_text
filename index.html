@@ -52,6 +52,8 @@ $\begin{itemize}
 
             let processedText = latexInput
                 .replace(/\\n/g, '<br>')
+                .replace(/\\\\/g, '<br>')  // Treat \ as 
+
                 .replace(/\$\\underline{([^}]+)}\$/g, '<u>$1</u>')  // Fix underline with $ wrapper
                 .replace(/\\underline{([^}]+)}/g, '<u>$1</u>')  // Underline without $ wrapper
                 .replace(/\\textbf{([^}]+)}/g, '<strong>$1</strong>')  // Bold
