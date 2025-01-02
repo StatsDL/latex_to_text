@@ -24,12 +24,12 @@
         </div>
         <div class="split-container">
             <div class="half">
-                <textarea id="latex-input" placeholder="Enter LaTeX here...">$\textbf{Bold Text}$, $\textit{Italic Text}$, $\frac{a}{b}$ \n 
-
-$\begin{enumerate}
+                <textarea id="latex-input" placeholder="Enter LaTeX here...">$
+\textbf{Bold Text}$, $\textit{Italic Text}$, $\frac{a}{b}$ \n
+\begin{enumerate}
 \item 1 tu
 \item 2 ty
-\end{enumerate}$</textarea>
+\end{enumerate}</textarea>
             </div>
             <div class="half">
                 <div id="output" class="output"></div>
@@ -48,6 +48,8 @@ $\begin{enumerate}
                 .replace(/\\n/g, '<br>')
                 .replace(/\\begin{enumerate}/g, '<ol>')
                 .replace(/\\end{enumerate}/g, '</ol>')
+                .replace(/\\begin{itemize}/g, '<ul>')
+                .replace(/\\end{itemize}/g, '</ul>')
                 .replace(/\\item/g, '<li>');
 
             outputDiv.innerHTML = processedText;
