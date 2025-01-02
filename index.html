@@ -54,7 +54,7 @@ $\begin{itemize}
                 .replace(/\\n/g, '<br>')
                 .replace(/\\\\/g, '<br>')  // Treat \ as new line
                 .replace(/\$\$([^$]+)\$\$/g, '<div>$$$1$$</div>')  // Block math
-                .replace(/\$([^$]+)\$/g, '<span>$1</span>')  // Inline math
+                .replace(/\$([^$]+?)\$/g, '<span>$1</span>')  // Inline math (handle consecutive $)
                 .replace(/\textbf{([^}]+)}/g, '<strong>$1</strong>')  // Bold
                 .replace(/\textit{([^}]+)}/g, '<em>$1</em>')  // Italic
                 .replace(/\texttt{([^}]+)}/g, '<code>$1</code>')  // Monospaced
@@ -76,7 +76,7 @@ $\begin{itemize}
                 .replace(/\multicolumn{\d+}{[^}]+}{([^}]+)}/g, '$1')  // Handle multicolumn by expanding content
                 .replace(/\cline{\d+-\d+}/g, '')  // Remove \cline entirely
                 .replace(/&/g, ' | ')  // Column separator
-                .replace(/\\/g, '<br>');  // Row separator
+                .replace(/\/g, '<br>');  // Row separator
 
             outputDiv.innerHTML = processedText;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
@@ -93,7 +93,7 @@ $\begin{itemize}
 
         window.onload = convertLatex;  // Auto convert on load
     </script>
-
+    
     <style>
         body {
             font-family: 'Arial', sans-serif;
