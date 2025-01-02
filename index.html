@@ -71,8 +71,9 @@ $\begin{itemize}
                 .replace(/\\begin{tabular}{.*?}/g, '')  // Start of tabular, remove braces
                 .replace(/\\end{tabular}/g, '')
                 .replace(/\\hline/g, '<hr>')  // Horizontal line in tabular
-                .replace(/\\multirow{[^}]+}{[^}]+}{([^}]+)}/g, '$1')  // Handle multirow
-                .replace(/\\multicolumn{[^}]+}{[^}]+}{([^}]+)}/g, '$1')  // Handle multicolumn
+                .replace(/\\multirow{\d+}{\*}{([^}]+)}/g, '$1')  // Handle multirow by retaining row content
+                .replace(/\\multicolumn{\d+}{[^}]+}{([^}]+)}/g, '$1')  // Handle multicolumn by expanding content
+                .replace(/\\cline{\d+-\d+}/g, '')  // Remove \cline entirely
                 .replace(/&/g, ' | ')  // Column separator
                 .replace(/\\\\/g, '<br>');  // Row separator
 
@@ -124,44 +125,6 @@ $\begin{itemize}
         .tab.active {
             border-bottom: 2px solid #333;
             font-weight: bold;
-        }
-        .split-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .half {
-            width: 48%;
-            min-width: 300px;
-            box-sizing: border-box;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            resize: vertical;
-        }
-        .output {
-            min-height: 150px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-            background: #f9f9f9;
-            overflow-x: auto;
-            word-wrap: break-word;
-        }
-        .copy-btn {
-            margin-top: 10px;
-            padding: 5px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
         }
     </style>
 </body>
