@@ -68,13 +68,11 @@ $\begin{itemize}
                 .replace(/<\/ol><ol>/g, '')  // Prevent nested enumerate duplication
                 .replace(/\\begin{matrix}/g, '\\left[\\begin{matrix}')  // Matrix with brackets
                 .replace(/\\end{matrix}/g, '\\end{matrix}\\right]')
-                .replace(/\\begin{tabular}/g, '<table border="1">')  // Tabular to HTML table
-                .replace(/\\end{tabular}/g, '</table>')
-                .replace(/\\hline/g, '<tr><td colspan="100%"><hr></td></tr>')  // Horizontal line
-                .replace(/&/g, '</td><td>')  // Column separation
-                .replace(/\\begin{table}/g, '<table>')
-                .replace(/\\end{table}/g, '</table>')
-                .replace(/<br><tr>/g, '<tr>');  // Cleanup for lines
+                .replace(/\\begin{tabular}{.*?}/g, '')  // Start of tabular, remove braces
+                .replace(/\\end{tabular}/g, '')
+                .replace(/\\hline/g, '<hr>')  // Horizontal line in tabular
+                .replace(/&/g, ' | ')  // Column separator
+                .replace(/\\\\/g, '<br>');  // Row separator
 
             outputDiv.innerHTML = processedText;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
@@ -162,17 +160,6 @@ $\begin{itemize}
             background-color: #333;
             color: white;
             cursor: pointer;
-        }
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #555;
         }
     </style>
 </body>
