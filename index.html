@@ -40,13 +40,14 @@
             const outputDiv = document.getElementById('output');
             let plainText = latexInput
                 .replace(/\$?\\frac{([^}]+)}{([^}]+)}/g, '($1/$2)')
-                .replace(/\textbf{([^}]+)}/g, '$1')
-                .replace(/\textit{([^}]+)}/g, '$1')
+                .replace(/\textbf{([^}]+)}/g, '<strong>$1</strong>')
+                .replace(/\textit{([^}]+)}/g, '<em>$1</em>')
+                .replace(/\text{([^}]+)}/g, '$1')
                 .replace(/\$/g, '')
                 .replace(/\\\(/g, '(')
                 .replace(/\\\)/g, ')');
 
-            outputDiv.textContent = plainText;
+            outputDiv.innerHTML = plainText;
         }
 
         function copyToClipboard() {
