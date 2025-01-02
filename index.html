@@ -26,10 +26,10 @@
             <div class="half">
                 <textarea id="latex-input" placeholder="Enter LaTeX here...">$\textbf{Bold Text}$, $\textit{Italic Text}$, $\frac{a}{b}$ \n 
 
-\begin{enumerate}
-\item 1
-\item 2
-\end{enumerate}</textarea>
+$\begin{enumerate}
+\item 1 tu
+\item 2 ty
+\end{enumerate}$</textarea>
             </div>
             <div class="half">
                 <div id="output" class="output"></div>
@@ -43,19 +43,20 @@
         function convertLatex() {
             const latexInput = document.getElementById('latex-input').value;
             const outputDiv = document.getElementById('output');
+            
             let processedText = latexInput
                 .replace(/\\n/g, '<br>')
                 .replace(/\\begin{enumerate}/g, '<ol>')
                 .replace(/\\end{enumerate}/g, '</ol>')
                 .replace(/\\item/g, '<li>');
 
-            outputDiv.innerHTML = `\(${processedText}\)`;
+            outputDiv.innerHTML = processedText;
             MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
         }
 
         function copyToClipboard() {
             const outputDiv = document.getElementById('output');
-            navigator.clipboard.writeText(outputDiv.textContent).then(() => {
+            navigator.clipboard.writeText(outputDiv.innerText).then(() => {
                 alert('Text copied to clipboard');
             }).catch(err => {
                 console.error('Failed to copy text: ', err);
